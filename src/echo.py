@@ -2,7 +2,7 @@ import praw
 
 reddit = praw.Reddit(user_agent='Python:echo-chamber:v0.0.1')
 
-print('Authorized:',str(not reddit.read_only))
+print('Authorized:',not reddit.read_only)
 
 subreddit = reddit.subreddit('EnoughTrumpSpam')
 
