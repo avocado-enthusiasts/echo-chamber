@@ -28,7 +28,7 @@ def main():
   submissions = []
   count = 10
 
-  if not r.read_only:
+  if r.read_only:
     print('Not authorized!')
     return
 
