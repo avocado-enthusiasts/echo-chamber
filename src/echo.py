@@ -28,9 +28,9 @@ def main():
   submissions = []
   count = 10
 
-  if r.read_only:
+  if not r.read_only:
     print('Not authorized!')
-    raise NotImplementedError
+    return
 
   get_ids(r, subreddit_name, count, submissions)
   process_submissions(item_map, submissions)
