@@ -73,6 +73,8 @@ class Strip:
 	# remove emojis
 	def stripEmojis(self, str):
 		try:
+			temp = re.sub(":((\+|\-)|([A-z]|[0-9]))+:", ' ', str) #remove text based emoji
+		
 			emoji_pattern = re.compile("["
 					u"\U0001F600-\U0001F64F"  # emoticons
 					u"\U0001F300-\U0001F5FF"  # symbols & pictographs
@@ -90,9 +92,8 @@ class Strip:
 					u"\u200d"
 					u"\u2640-\u2642"
 					"]+", flags=re.UNICODE)
-							   
-			temp = emoji_pattern.sub(r'', str)
-			return re.sub(":((\+|\-)|([A-z]|[0-9]))+:", ' ', temp) #remove text based emoji
+
+			return emoji_pattern.sub(r'', temp)
 			
 		except Exception as e:
 			print(f"\n\tSomething went wrong removing emojis::{e}\n\n")
