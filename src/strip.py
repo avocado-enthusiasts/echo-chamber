@@ -15,7 +15,7 @@ class Strip:
 		"""Removes all symobols and non-English characters, as well as stop words and short words.
 			Will include words with lengths >= 3 (default)."""
 		try:
-			urlFree = self.stipURLs(dirty.lower())
+			urlFree = self.stripURLs(dirty.lower())
 			emojiFree = self.stripEmojis(urlFree)
 			accentFree = self.transliterate(emojiFree)
 			en_str = self.englishWordsOnly(accentFree)
@@ -33,7 +33,7 @@ class Strip:
 	def removeSymbols(self, dirty):
 		"""Removes all symobols and non-English characters."""
 		try:
-			urlFree = self.stipURLs(dirty.lower())
+			urlFree = self.stripURLs(dirty.lower())
 			emojiFree = self.stripEmojis(urlFree)
 			accentFree = self.transliterate(emojiFree)
 			en_str = self.englishWordsOnly(accentFree)
@@ -91,13 +91,14 @@ class Strip:
 					u"\u2640-\u2642"
 					"]+", flags=re.UNICODE)
 							   
-			return emoji_pattern.sub(r'', str)
+			temp = emoji_pattern.sub(r'', str)
+			return re.sub(":((\+|\-)|([A-z]|[0-9]))+:", ' ', temp) #remove text based emoji
 			
 		except Exception as e:
 			print(f"\n\tSomething went wrong removing emojis::{e}\n\n")
 
 	#remove hyperlinks
-	def stipURLs(self, str):
+	def stripURLs(self, str):
 		return re.sub(r'(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>?«»“”‘’]))', '', str, flags=re.MULTILINE)
 		
 	
@@ -119,7 +120,7 @@ def test_example_strip_class():
 	tease = Strip()
 	
 	#TEST TEXT
-	text = "🤔 🙈 mie así, \u200c @hashtags @ &^% * \ud83c Black cats back rats baking matts and add it to their Résumé. i oh you es se 😌 ds 💕👭👙 \u200c \ude18 :-) русский язык, tr. rússkiy yazýk andiamo العَرَبِيَّة‎ catss git.ly/asd/home/homeie/134oij23j23i4jl2k3jlk http://www.google.com During the month of may with colour. \N{MAHJONG TILE GREEN DRAGON} ->\U0001F620\U0001F310\U0001F690\U0001F1F0<-"
+	text = " :+1: :clock1230: :-1: :rocket: :stuck_out_tongue_closed_eyes: :octocat: 🤔 🙈 mie así, \u200c @hashtags @ &^% * \ud83c Black cats back rats baking matts and add it to their Résumé. i oh you es se 😌 ds 💕👭👙 \u200c \ude18 :-) русский язык, tr. rússkiy yazýk andiamo العَرَبِيَّة‎ catss git.ly/asd/home/homeie/134oij23j23i4jl2k3jlk http://www.google.com During the month of may with colour. \N{MAHJONG TILE GREEN DRAGON} ->\U0001F620\U0001F310\U0001F690\U0001F1F0<-"
 	
 	res = tease.removeALL(text)
 		
