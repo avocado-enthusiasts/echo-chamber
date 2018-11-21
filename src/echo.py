@@ -40,10 +40,9 @@ def main():
     body = r.comment(cid).body
     if body != '[deleted]' and body != '[removed]':
       count += 1
-      print(str(count) + '\n' + body + '\n')
+      print(body+'\n')
   end = timer()
   total = end - start
-  print("Time per comment = " + str(total/count))
   # subreddit_name = 'EnoughTrumpSpam'
   # item_map = defaultdict(list)
   # submissions = []
