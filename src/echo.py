@@ -1,5 +1,8 @@
-import praw
+#!/usr/bin/python3
+
+import praw, json, requests
 from collections import defaultdict
+from timeit import default_timer as timer
 
 def get_items(comment, item_list):
   item_list.append(comment)
@@ -21,21 +24,36 @@ def process_submissions(item_map, submissions):
     for comment in submission.comments:
       get_items(comment, item_map[submission.id])
 
+
+
 def main():
   r = praw.Reddit(user_agent='Python:echo-chamber:v0.0.1')
-  subreddit_name = 'EnoughTrumpSpam'
-  item_map = defaultdict(list)
-  submissions = []
-  count = 10
-
   if r.read_only:
     print('Not authorized!')
     return
 
-  get_ids(r, subreddit_name, count, submissions)
-  process_submissions(item_map, submissions)
+  req = requests.get('https://api.pushshift.io/reddit/submission/comment_ids/9xwtzs')
+  ids = req.json()
+  start = timer()
+  count = 0
+  for cid in ids['data']:
+    body = r.comment(cid).body
+    if body != '[deleted]' and body != '[removed]':
+      count += 1
+      print(str(count) + '\n' + body + '\n')
+  end = timer()
+  total = end - start
+  print("Time per comment = " + str(total/count))
+  # subreddit_name = 'EnoughTrumpSpam'
+  # item_map = defaultdict(list)
+  # submissions = []
+  # count = 10
 
-  print(item_map)
+
+  # get_ids(r, subreddit_name, count, submissions)
+  # process_submissions(item_map, submissions)
+
+  # print(item_map)
 
 if __name__ == '__main__':
   main()
