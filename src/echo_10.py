@@ -31,7 +31,7 @@ def main():
     print('Not authorized!')
     return
   count = 0
-  with open('subreddit_list.txt') as subreddit_list:
+  with open('subreddit_list_10.txt') as subreddit_list:
     for line in subreddit_list:
       subreddit_name = line.strip()
       subreddit = r.subreddit(subreddit_name)
