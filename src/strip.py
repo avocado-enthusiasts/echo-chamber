@@ -73,7 +73,7 @@ class Strip:
 	# remove emojis
 	def stripEmojis(self, str):
 		try:
-			temp = re.sub(":((\+|\-)|([A-z]|[0-9]))+:", ' ', str) #remove text based emoji
+			temp = re.sub("(@[A-z0-9]*)|:((\+|\-)|([A-z]|[0-9]))+:", ' ', str) #remove text based emoji
 		
 			emoji_pattern = re.compile("["
 					u"\U0001F600-\U0001F64F"  # emoticons
