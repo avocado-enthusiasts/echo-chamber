@@ -124,8 +124,8 @@ class Strip:
 
 
 if __name__ == "__main__":
-    corpora = "data/corpora"
-    normalized = "data/normalized"
+    corpora = "../data/corpora"
+    normalized = "../data/normalized"
     tease = Strip()
     print("Starting...")
     output = open(normalized, "w+")
