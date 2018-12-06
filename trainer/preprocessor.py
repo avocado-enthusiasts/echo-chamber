@@ -13,6 +13,12 @@ class Strip:
         if create:
             self.stpwrds = set(nltk.corpus.stopwords.words('english'))
 
+    def removeAllJSON(self, json_object, json_field, user_length=3):
+        """Do the exact same thing with a JSON object"""
+        clean = self.removeALL(json_object[json_field], user_length)
+        json_object[json_field] = clean
+        return json_object
+
     def removeALL(self, dirty, user_length=3):
         """Removes all symobols and non-English characters, as well as stop words and short words.
             Will include words with lengths >= 3 (default)."""
@@ -102,7 +108,7 @@ class Strip:
     # remove hyperlinks
     def stripURLs(self, str):
         return re.sub(
-            r'(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>?«»“”‘’]))',
+            r'http\S+',
             '', str, flags=re.MULTILINE)
 
     # remove punctuation
@@ -116,29 +122,25 @@ class Strip:
         return s.strip()
 
 
-def test_example_strip_class():
-    """test example for the Strip class"""
-    print("## beginning strip class example ##")
-    tease = Strip()
-
-    # TEST TEXT
-    text = ":+1: :clock1230: :-1: :rocket: :stuck_out_tongue_closed_eyes: :octocat: 🤔 🙈 mie así, \u200c @hashtags @ " \
-           "&^% * \ud83c Black cats back rats baking matts and add it to their Résumé. i oh you es se 😌 ds 💕👭👙 " \
-           "\u200c \ude18 :-) русский язык, tr. rússkiy yazýk andiamo العَرَبِيَّة‎ catss " \
-           "git.ly/asd/home/homeie/134oij23j23i4jl2k3jlk http://www.google.com During the month of may with colour. " \
-           "\N{MAHJONG TILE GREEN DRAGON} ->\U0001F620\U0001F310\U0001F690\U0001F1F0<- "
-
-    res = tease.removeALL(text)
-    print(res)
-
-    ans = 'black cats back rats baking add resume month may colour'
-    print(ans)
-
-    if res == ans:
-        print(True)
-    else:
-        print(False)
-
-
-if __name__ == "__main__":
-    test_example_strip_class()
+# def test_example_strip_class():
+#     """test example for the Strip class"""
+#     print("## beginning strip class example ##")
+#     tease = Strip()
+#
+#     # TEST TEXT
+#     text = '{"author": "numis10", "author_flair_css_class": "purpleblack", "author_flair_text": "the fury of 20 bil. women silenced by the church (aka 1st reich)", "body": "just saying that violence doesn't need to be forms we have have already tried many times before and seen the results of - like gun revolutions and their results of leading to expansion of empire and war... that's the thing.. this kind of violence leads to growth of capital, because it courts and seeks out war..... and war is expansion of capital.... french revolution led to napoleon... american revolution led to this bullshit we in now.... german revolutions led to.. well..  you get the point..\n\nhow about magic or something...? curse putin and trump... crack their brains with some serious lucid dreaming astral souldiving tech...... it\'s something different...\n\nhow about just everyone goes to the white house and goes inside and refuses to leave... if enough ppl did it.... they would not be able to shoot or remove em alll... \n\ni dunnol....\n\nbut, we got enough smarts and talent among the lot of us.... we should be able to figure this out!\n\n\n", "can_gild": true, "controversiality": 0, "created_utc": 1518667755, "distinguished": null, "edited": false, "gilded": 0, "id": "du9rvq9", "is_submitter": false, "link_id": "t3_7xklto", "parent_id": "t1_du9qtjg", "permalink": "/r/Anarchism/comments/7xklto/meet_the_radical_leftists_in_america_arming/du9rvq9/", "retrieved_on": 1519259037, "score": 1, "stickied": false, "subreddit": "Anarchism", "subreddit_id": "t5_2qh5j", "subreddit_type": "public"}'
+#
+#     res = tease.removeALL(text)
+#     print(res)
+#
+#     ans = 'black cats back rats baking add resume month may colour'
+#     print(ans)
+#
+#     if res == ans:
+#         print(True)
+#     else:
+#         print(False)
+#
+#
+# if __name__ == "__main__":
+#     test_example_strip_class()
