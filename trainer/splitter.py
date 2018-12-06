@@ -49,7 +49,7 @@ class Splitter:
         test.close()
 
 if __name__ == '__main__':
-    normalized = "data/normalized"
+    normalized = "../data/normalized"
     splitter = Splitter(0.8, 0, 0.2, normalized)
     splitter.doSplit()
     print("Splitting finished!")
