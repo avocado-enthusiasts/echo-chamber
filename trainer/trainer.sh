@@ -1,5 +1,6 @@
 #!/bin/bash
-for i in 1 4 7;
+# $1 is the address of fasttext repository.
+for i in 1 5 9;
 do
         for j in `seq 1 5`;
         do
@@ -7,12 +8,12 @@ do
                 do
                         LR="0.$i"
                         let "DIM = $j * 50"
-                        name="mlr$LR-dim$DIM-gram$k"
+                        name="model_lr$LR-dim$DIM-ngram$k"
                         echo "$name..."
-                        echo "Model $name.bin - LR: $LR - DIM: $DIM: - Ngrams: $k" &>> ./output/report.txt
-                        ../fasttext sent2vec -input train.txt -output "./models/$name" -lr $LR -dim $DIM -wordNgrams $k &>> ./output/report.txt
+                        echo "Model $name.bin - LR: $LR - DIM: $DIM: - Ngrams: $k" &>> ../data/output/report.txt
+                        $1 sent2vec -input ../data/train.txt -output "../data/models/$name" -lr $LR -dim $DIM -wordNgrams $k &>> ../data/output/report.txt
                         echo "Learned..."
-                        cat "test.txt" | ../fasttext print-sentence-vectors "./models/$name.bin" &>> "./output/$name.txt"
+                        cat "../data/test.txt" | $1 print-sentence-vectors "../data/models/$name.bin" &>> "./output/$name.txt"
                         echo "=====================================================================================================================\n"&>> ./output/report.txt
                         echo "And Tested..."
                         rm "./models/$name.bin"
