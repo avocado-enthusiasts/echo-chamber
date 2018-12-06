@@ -1,6 +1,7 @@
 import re
 import string
 import enchant
+import json
 import nltk
 import unidecode
 
@@ -122,25 +123,19 @@ class Strip:
         return s.strip()
 
 
-# def test_example_strip_class():
-#     """test example for the Strip class"""
-#     print("## beginning strip class example ##")
-#     tease = Strip()
-#
-#     # TEST TEXT
-#     text = '{"author": "numis10", "author_flair_css_class": "purpleblack", "author_flair_text": "the fury of 20 bil. women silenced by the church (aka 1st reich)", "body": "just saying that violence doesn't need to be forms we have have already tried many times before and seen the results of - like gun revolutions and their results of leading to expansion of empire and war... that's the thing.. this kind of violence leads to growth of capital, because it courts and seeks out war..... and war is expansion of capital.... french revolution led to napoleon... american revolution led to this bullshit we in now.... german revolutions led to.. well..  you get the point..\n\nhow about magic or something...? curse putin and trump... crack their brains with some serious lucid dreaming astral souldiving tech...... it\'s something different...\n\nhow about just everyone goes to the white house and goes inside and refuses to leave... if enough ppl did it.... they would not be able to shoot or remove em alll... \n\ni dunnol....\n\nbut, we got enough smarts and talent among the lot of us.... we should be able to figure this out!\n\n\n", "can_gild": true, "controversiality": 0, "created_utc": 1518667755, "distinguished": null, "edited": false, "gilded": 0, "id": "du9rvq9", "is_submitter": false, "link_id": "t3_7xklto", "parent_id": "t1_du9qtjg", "permalink": "/r/Anarchism/comments/7xklto/meet_the_radical_leftists_in_america_arming/du9rvq9/", "retrieved_on": 1519259037, "score": 1, "stickied": false, "subreddit": "Anarchism", "subreddit_id": "t5_2qh5j", "subreddit_type": "public"}'
-#
-#     res = tease.removeALL(text)
-#     print(res)
-#
-#     ans = 'black cats back rats baking add resume month may colour'
-#     print(ans)
-#
-#     if res == ans:
-#         print(True)
-#     else:
-#         print(False)
-#
-#
-# if __name__ == "__main__":
-#     test_example_strip_class()
+if __name__ == "__main__":
+    corpora = "data/corpora"
+    normalized = "data/normalized"
+    tease = Strip()
+    print("Starting...")
+    output = open(normalized, "w+")
+    with open(corpora) as textSet:
+        i = 0
+        for line in textSet:
+            clean_comment = tease.removeAllJSON(json.loads(line), 'body')
+            json.dump(clean_comment, output)
+            output.write('\n')
+            print("Cleaned comment #" + str(i))
+            i += 1
+    textSet.close()
+    output.close()

@@ -1,6 +1,7 @@
 import json
 import random
 
+
 class Splitter:
     """Split a given Corpora to a training, validation and testing set."""
 
@@ -46,3 +47,11 @@ class Splitter:
         train.close()
         valid.close()
         test.close()
+
+if __name__ == '__main__':
+    normalized = "data/normalized"
+    splitter = Splitter(0.8, 0, 0.2, normalized)
+    splitter.doSplit()
+    print("Splitting finished!")
+    splitter.saveSets()
+    print("Sets saved!")
