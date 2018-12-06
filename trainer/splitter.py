@@ -15,6 +15,7 @@ class Splitter:
         self.validationSet = list()
 
     def doSplit(self):
+        print("Starting to split the sets...")
         comments = list()
         with open(self.inputFileAddress) as subreddit:
             for line in subreddit:
@@ -32,3 +33,16 @@ class Splitter:
                 self.validationSet.append(comments[i])
         subreddit.close()
 
+    def saveSets(self):
+        train = open("data/train.text", "w+")
+        valid = open("data/valid.text", "w+")
+        test = open("data/test.text", "w+")
+        for comment in self.trainingSet:
+            train.write(comment['body'] + '\n')
+        for comment in self.validationSet:
+            valid.write(comment['body'] + '\n')
+        for comment in self.testingSet:
+            test.write(comment['body'] + '\n')
+        train.close()
+        valid.close()
+        test.close()
