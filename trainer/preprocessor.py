@@ -1,3 +1,4 @@
+import sys
 import re
 import string
 import enchant
@@ -124,8 +125,8 @@ class Strip:
 
 
 if __name__ == "__main__":
-    corpora = "../data/corpora"
-    normalized = "../data/normalized"
+    corpora = sys.argv[1]
+    normalized = corpora + "_normalized"
     tease = Strip()
     print("Starting...")
     output = open(normalized, "w+")
