@@ -9,7 +9,7 @@ for j in 2 10 50 100 140 700;
 do
         for k in 1 2 3;
         do
-                let "DIM = $j * 50"
+                DIM=$j
                 name="$4_model_dim$DIM-ngram$k"
                 echo "$name..."
                 echo "Model $name.bin - DIM: $DIM: - Ngrams: $k" &>> ../output/results/report.txt
