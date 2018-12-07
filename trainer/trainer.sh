@@ -12,11 +12,11 @@ do
                 DIM=$j
                 name="$4_model_dim$DIM-ngram$k"
                 echo "$name..."
-                echo "Model $name.bin - DIM: $DIM: - Ngrams: $k" &>> ../output/results/report.txt
-                $1 sent2vec -input "$train" -output "../output/models/$name" -dim $DIM -wordNgrams $k &>> ../output/results/report.txt
+                echo "Model $name.bin - DIM: $DIM: - Ngrams: $k" &>> "../output/results/$4_result.txt"
+                $1 sent2vec -input "$train" -output "../output/models/$name" -dim $DIM -wordNgrams $k &>> "../output/results/$4_result.txt"
                 echo "Learned..."
-                cat "$testSet" | $1 print-sentence-vectors "../output/models/$name.bin" &>> "../output/vectors/$name.txt"
-                echo "========================================================================\n"&>> ../output/results/report.txt
+                cat "$testSet" | $1 print-sentence-vectors "../output/models/$name.bin" &>> "../output/results/$4_result.txt"
+                echo "========================================================================\n"&>> "../output/results/$4_result.txt"
                 echo "And Tested..."
                 #rm "./models/$name.bin"
                 #echo "And also removed!"
