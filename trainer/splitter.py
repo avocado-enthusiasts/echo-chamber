@@ -1,3 +1,4 @@
+import sys
 import json
 import random
 
@@ -35,9 +36,9 @@ class Splitter:
         subreddit.close()
 
     def saveSets(self):
-        train = open("data/train.text", "w+")
-        valid = open("data/valid.text", "w+")
-        test = open("data/test.text", "w+")
+        train = open(self.inputFileAddress + "_train.txt", "w+")
+        valid = open(self.inputFileAddress + "_valid.txt", "w+")
+        test = open(self.inputFileAddress + "_test.txt", "w+")
         for comment in self.trainingSet:
             train.write(comment['body'] + '\n')
         for comment in self.validationSet:
@@ -49,7 +50,7 @@ class Splitter:
         test.close()
 
 if __name__ == '__main__':
-    normalized = "../data/normalized"
+    normalized = sys.argv[1]
     splitter = Splitter(0.8, 0, 0.2, normalized)
     splitter.doSplit()
     print("Splitting finished!")
