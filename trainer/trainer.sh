@@ -12,7 +12,7 @@ do
                 name="model_dim$DIM-ngram$k"
                 echo "$name..."
                 echo "Model $name.bin - DIM: $DIM: - Ngrams: $k" &>> ../output/results/report.txt
-                $1 sent2vec -input "$train" -output "../output/models/$name" -lr $LR -dim $DIM -wordNgrams $k &>> ../output/results/report.txt
+                $1 sent2vec -input "$train" -output "../output/models/$name" -dim $DIM -wordNgrams $k &>> ../output/results/report.txt
                 echo "Learned..."
                 cat "$testSet" | $1 print-sentence-vectors "../output/models/$name.bin" &>> "../output/vectors/$name.txt"
                 echo "========================================================================\n"&>> ../output/results/report.txt
