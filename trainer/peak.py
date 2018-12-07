@@ -13,6 +13,6 @@ for file in cos_list:
       line = line.strip()
       dic[line] += 1
   sorted_dic = sorted(dic.items(), key=lambda x: x[1], reverse=True)
-  print(sorted_dic[0:10])
+  print(file + str(sorted_dic[0:10]) + "\n")
 
 
