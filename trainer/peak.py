@@ -12,5 +12,7 @@ for file in cos_list:
     if line:
       line = line.strip()
       dic[line] += 1
-  sorted_dic = sorted(dic.items(), key=lambda x: x[1])
-  print(sorted_dic)
+  sorted_dic = sorted(dic.items(), key=lambda x: x[1], reverse=True)
+  print(sorted_dic[0:10])
+
+
