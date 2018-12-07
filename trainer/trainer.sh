@@ -5,7 +5,7 @@
 # $4 is the name of the category
 train=$2
 testSet=$3
-for j in `seq 1 5`;
+for j in 2 10 50 100 700;
 do
         for k in 1 2 3;
         do
