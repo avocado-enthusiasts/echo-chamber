@@ -11,11 +11,11 @@ do
                 let "DIM = $j * 50"
                 name="model_dim$DIM-ngram$k"
                 echo "$name..."
-                echo "Model $name.bin - DIM: $DIM: - Ngrams: $k" &>> ../data/output/report.txt
-                $1 sent2vec -input "$train" -output "../data/models/$name" -lr $LR -dim $DIM -wordNgrams $k &>> ../data/output/report.txt
+                echo "Model $name.bin - DIM: $DIM: - Ngrams: $k" &>> ../output/results/report.txt
+                $1 sent2vec -input "$train" -output "../output/models/$name" -lr $LR -dim $DIM -wordNgrams $k &>> ../output/results/report.txt
                 echo "Learned..."
-                cat "$testSet" | $1 print-sentence-vectors "../data/models/$name.bin" &>> "./output/$name.txt"
-                echo "=====================================================================================================================\n"&>> ./output/report.txt
+                cat "$testSet" | $1 print-sentence-vectors "../output/models/$name.bin" &>> "../output/vectors/$name.txt"
+                echo "========================================================================\n"&>> ../output/results/report.txt
                 echo "And Tested..."
                 #rm "./models/$name.bin"
                 #echo "And also removed!"
